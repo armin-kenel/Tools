@@ -1,6 +1,3 @@
-/**
- *
- */
 package ch.secona.checkfiles;
 
 import java.io.File;
@@ -9,13 +6,17 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- *
+ * Checks a list of files in a given directory (arg1) for existence in another
+ * directory (arg2).
  */
 public class CheckFiles {
 	private int notFound = 0;
 	private final String toCheck;
 	private final String checkIn;
 
+	/**
+	 * @param args the command line arguments
+	 */
 	public CheckFiles(final String[] args) {
 		if (args.length != 2) {
 			title();
@@ -51,7 +52,11 @@ public class CheckFiles {
 				final int size = foundList.size();
 
 				if (size != 1) {
-					System.out.println("" + name + " more than 1 found.");
+					System.out.println(file.getAbsoluteFile() + " " + size);
+					foundList.stream().forEach(foundFile -> {
+						System.out.println("- " + foundFile.getAbsolutePath());
+					});
+					System.out.println("");
 				}
 			}
 		});
@@ -66,6 +71,13 @@ public class CheckFiles {
 		System.out.println("-------------------------------------------");
 	}
 
+	/**
+	 * reads all files in a given directory and its sub directories and adds the
+	 * file name to the passed list.
+	 *
+	 * @param folder   folder to read
+	 * @param fileList list where the read file names are added
+	 */
 	private void readFiles(final File folder, final List<File> fileList) {
 		for (final File fileEntry : folder.listFiles()) {
 			if (fileEntry.isDirectory()) {
@@ -76,6 +88,10 @@ public class CheckFiles {
 		}
 	}
 
+	/**
+	 * prints out the program name and the given arguments.<br>
+	 * shows the syntax if arguments are not yet available.
+	 */
 	private void title() {
 		line();
 		System.out.println(CheckFiles.class.getSimpleName());
@@ -95,7 +111,11 @@ public class CheckFiles {
 	}
 
 	/**
-	 * @param args
+	 * main entry point when starting the application directly.
+	 *
+	 * @param args command line arguments:<br>
+	 *             arg1: the directory with files to check<br>
+	 *             arg2: check if files are in given directory
 	 */
 	public static void main(final String[] args) {
 		final CheckFiles checkFiles = new CheckFiles(args);
