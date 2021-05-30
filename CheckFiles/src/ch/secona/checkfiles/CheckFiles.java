@@ -50,7 +50,7 @@ public class CheckFiles {
 					check -> check.getName().equalsIgnoreCase(name)).collect(Collectors.toList());
 
 			if (foundList == null || foundList.isEmpty()) {
-				System.out.println("Not found: " + name);
+				System.out.println("Not found: " + file.getAbsolutePath());
 				notFound++;
 			} else {
 				final int size = foundList.size();
