@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
  * directory (arg2).
  */
 public class CheckFiles {
+	private static final int PRINT_EACH_FILE_IF_LESS_THAN_THIS_NUMBER = 10;
 	private int notFound = 0;
 	private final String toCheck;
 	private final String checkIn;
@@ -27,6 +28,9 @@ public class CheckFiles {
 		title();
 	}
 
+	/**
+	 * Does the magic ...!
+	 */
 	public void execute() {
 		final File toCheckDirectory = new File(toCheck);
 		final File checkInDirectory = new File(checkIn);
@@ -51,11 +55,13 @@ public class CheckFiles {
 			} else {
 				final int size = foundList.size();
 
-				if (size != 1) {
-					System.out.println(file.getAbsoluteFile() + " " + size);
-					foundList.stream().forEach(foundFile -> {
-						System.out.println("- " + foundFile.getAbsolutePath());
-					});
+				if (size > 1) {
+					System.out.println("" + size + " " + file.getAbsoluteFile());
+					if (size < PRINT_EACH_FILE_IF_LESS_THAN_THIS_NUMBER) {
+						foundList.stream().forEach(foundFile -> {
+							System.out.println("- " + foundFile.getAbsolutePath());
+						});
+					}
 					System.out.println("");
 				}
 			}
