@@ -37,10 +37,10 @@ public class CheckFiles {
 		final List<File> toCheckFiles = new ArrayList<>();
 		final List<File> checkInFiles = new ArrayList<>();
 
-		readFiles(toCheckDirectory, toCheckFiles);
-		readFiles(checkInDirectory, checkInFiles);
 		line();
+		readFiles(toCheckDirectory, toCheckFiles);
 		System.out.println("Files to check : " + toCheckFiles.size());
+		readFiles(checkInDirectory, checkInFiles);
 		System.out.println("Files for check: " + checkInFiles.size());
 		line();
 		System.out.println("");
